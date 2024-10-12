@@ -1,0 +1,88 @@
+
+html, body {
+    margin: 0;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+
+
+body {
+    width: 100vw; /* Full width */
+    height: 100vh; /* Full height */
+    background: linear-gradient(115deg, #11df9e, rgb(108, 201, 251),#c167e4,rgb(230, 79, 139)
+    );
+    background-size: 400% 400%;
+    animation: movingGradient 10s ease infinite;
+    text-align: center;
+}
+
+@keyframes movingGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.gradient-box{
+    background-color: rgba(255, 255, 255, 0.5);
+   max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    font-size: 1rem;
+}
+
+input[type="text"] {
+    width: 250px;            
+    height: 30px;           
+    padding: 5px;          
+    font-size: 16px;        
+    margin-top: 10px;       
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;    
+    cursor: pointer;   
+    border-color: transparent;     
+}
+
+.search-btn {
+    border-radius: 50%;     
+    height: 40px;           
+    width: 40px;            
+    padding: 0px;     
+    background-color: rgba(255, 255, 255, 0.5);
+    margin-top: 20px;  
+    border-color: transparent;  
+    cursor: pointer; 
+}
+
+.Weather img {
+    width: 150px;           
+    margin-right: 10px;     
+}
+
+.search-btn:hover {
+    background-color: #e3f0f8; 
+} 
+
+.extra-info{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+.wind-info .humidity-info .visiblity-info{
+    font-size: 30px;
+    margin-top: -10px;
+}
+.city .temp{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 45px;
+    color: rgb(5, 5, 5);
+}

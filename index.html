@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Weather Application</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="simple-box">
+        <div class="gradient-box">
+            <form class="search-form" action="">
+                <input class="city-input" type="text" placeholder="Enter City">
+                <button class="search-btn" type="submit">
+                    <i class="material-icons">search</i>
+                </button>
+            </form>
+           
+            <div class="Weather">
+                <img src="Images/clouds.png"  id="weather-icon">
+                <h1 class="city" id="city">Delhi</h1>
+                <h2 class="temp">17°c </h2>
+            </div>
+       <div class="temperature-detail">
+            <div class="description">
+                <span class="description-text">Cloudy</span>
+            <div class="date">11th Oct Friday 2024</div>
+        </div>
+            <br/>
+           
+            <div class="extra-info">
+                <div class="wind-info">
+                    <i class="material-icons">air</i>
+                    <div>
+                        <h3 class="wind-speed">4 KM/H</h3>
+                        <p class="wind-label">Wind Speed</p>
+                    </div>
+                </div>
+            
+                <div class="humidity-info">
+                    <i class="material-icons">water_drop</i>
+                    <div>
+                        <h3 class="humidity">68%</h3>
+                        <p class="humid-label">Humidity</p>
+                    </div>
+                </div>
+            
+                <div class="visibility-info">
+                    <i class="material-icons">visibility</i>
+                    <div>
+                        <h3 class="visibility">2.5 km</h3>
+                        <p class="visibility-label">Visibility</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
