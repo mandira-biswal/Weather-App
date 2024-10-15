@@ -1,77 +1,78 @@
-const apiKey = `52031b3958eab68084c1e4afcca24a0b`;
+const apiKey = '52031b3958eab68084c1e4afcca24a0b';
 
-async function fetchWeatherData(city) {
-    try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`);
-        if (!response.ok) {
-            throw new Error("Unable to fetch weather data");
-        }
-        const data = await response.json();
-        console.log(data); // Log the data for debugging
-        updateWeatherUI(data);
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-const cityElement = document.querySelector(".city");
-const temperatureElement = document.querySelector(".temp");
-const windSpeedElement = document.querySelector(".wind-speed");
-const humidityElement = document.querySelector(".humidity");
-const visibilityElement = document.querySelector(".visibility-distance");
-const descriptionText = document.querySelector(".description-text");
-const dateElement = document.querySelector(".date");
-const weatherIconElement = document.getElementById("weather-icon");
-
-function updateWeatherUI(data) {
-    cityElement.textContent = data.name;
-    temperatureElement.textContent = `${Math.round(data.main.temp)}°C`;
-    windSpeedElement.textContent = `${data.wind.speed} km/h`;
-    humidityElement.textContent = `${data.main.humidity}%`;
-    visibilityElement.textContent = `${data.visibility / 1000} km`;
-    descriptionText.textContent = data.weather[0].description;
-
-    const weatherCondition = data.weather[0].main.toLowerCase(); // Get the main weather condition
-    const iconUrl = getWeatherIcon(weatherCondition); // Get the icon URL based on the condition
-    weatherIconElement.src = iconUrl; // Update the icon src
-
-    const currentDate = new Date();
-    dateElement.textContent = currentDate.toDateString();
-}
-
-// Function to get weather icon URL based on the condition
-function getWeatherIcon(condition) {
-    switch (condition) {
-        case 'clear':
-            return "C:/Weather Application/Images/Sun.png"; // Use forward slashes
-        case 'clouds':
-            return "C:/Weather Application/Images/clouds.png"; // Use forward slashes
-        case 'rain':
-            return "C:/Weather Application/Images/rain.png"; // Use forward slashes
-        case 'snow':
-            return "C:/Weather Application/Images/snow.png"; // Use forward slashes
-        case 'drizzle':
-            return "C:/Weather Application/Images/drizzle.png"; // Use forward slashes
-        default:
-            return "C:/Weather Application/Images/default.png"; // Fallback icon
-    }
-}
-
-// Set the current date on page load
-const currentDate = new Date();
-dateElement.textContent = currentDate.toDateString();
-
-const formElement = document.querySelector(".search-form");
-const inputElement = document.querySelector(".city-input");
 document.addEventListener("DOMContentLoaded", () => {
-    
-});
+    const formElement = document.querySelector(".search-form");
+    const inputElement = document.querySelector(".city-input");
+    const weatherIcon = document.getElementById("weather-icon");
 
-formElement.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const city = inputElement.value.trim(); // Trim whitespace
-    if (city !== "") {
-        fetchWeatherData(city);
+    // Select the necessary elements
+    const cityElement = document.querySelector(".city");
+    const tempElement = document.querySelector(".temp");
+    const humidityElement = document.querySelector(".humidity");
+    const windElement = document.querySelector(".wind-speed");
+    const visibilityElement = document.querySelector(".visibility");
+    const errorElement = document.querySelector(".error");
+    const weatherElement = document.querySelector(".weather");
+
+    formElement.addEventListener('submit', (e) => {
+        e.preventDefault();
+        checkWeather(inputElement.value);
+    });
+
+    async function checkWeather(city) {
+        try {
+            console.log(`Fetching weather for: ${city}`);
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`);
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data); // Log the entire data for debugging
+
+                cityElement.textContent = data.name;
+                tempElement.textContent = `${Math.round(data.main.temp)}°C`;
+                humidityElement.textContent = `${data.main.humidity}%`;
+                windElement.textContent = `${data.wind.speed} km/h`;
+                visibilityElement.textContent = `${data.visibility / 1000} km`;
+
+                const weatherCondition = data.weather[0].main.toLowerCase();
+                weatherIcon.src = getWeatherIcon(weatherCondition);
+
+                // Show the weather info and hide the error
+                weatherElement.style.display = "block";
+                errorElement.style.display = "none";
+            } else {
+                // Handle different HTTP response statuses
+                if (response.status === 404) {
+                    errorElement.textContent = "City not found. Please try again.";
+                } else {
+                    errorElement.textContent = "An error occurred. Please try again.";
+                }
+                errorElement.style.display = "block";
+                weatherElement.style.display = "none";
+            }
+        } catch (error) {
+            console.error("Error fetching weather data:", error);
+        }
+    }
+
+    function getWeatherIcon(condition) {
+        switch (condition) {
+            case 'clear':
+                return "Images/Sun.png";
+            case 'clouds':
+                return "Images/clouds.png";
+            case 'drizzle':
+                return "Images/drizzle.png";
+            case 'rain':
+                return "Images/rain.png";
+            case 'snow':
+                return "Images/snow.png";
+            case 'humidity':
+                return "Images/humidity.png"
+            default:
+                return "Images/clouds.png"; // Fallback icon
+        }
     }
 });
+
 
